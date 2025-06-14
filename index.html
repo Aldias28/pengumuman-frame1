@@ -3,226 +3,233 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Kelola Materi</title>
-<!-- Google Material Icons CDN -->
+<title>Kavola Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <style>
-  /* Reset & base */
-  *, *::before, *::after {
+  /* Reset and base */
+  * {
     box-sizing: border-box;
   }
   body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #fffbea;
-    color: #463b00;
-    line-height: 1.5;
+    background: #fff8e1;
+    color: #4a401e;
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
+  }
+  /* Container for page */
+  .page-container {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 16px;
+    gap: 24px;
   }
 
-  /* Layout containers */
-  header, footer {
-    background: #fff9c4; /* light yellow */
-    color: #463b00;
-    padding: 1rem 1.5rem;
-    font-weight: 700;
-    user-select: none;
-  }
-
+  /* Header */
   header {
-    font-size: 1.25rem;
-    position: sticky;
-    top: 0;
-    box-shadow: 0 2px 4px rgba(70, 59, 0, 0.15);
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: #fdd835;
+    color: #4a401e;
+    font-weight: 700;
+    font-size: 1.6rem;
+    padding: 16px 24px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgb(253 216 53 / 0.3);
   }
 
-  main {
-    flex-grow: 1;
-    padding: 1.5rem;
-    display: flex;
-    justify-content: center;
-  }
-
-  .card {
-    background: white;
+  /* Quiz card */
+  .quiz-card {
+    background: #fffde7;
+    border: 2px solid #fdd835;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgb(255 235 59 / 0.2);
-    border: 2px solid #ffeb3b;
-    max-width: 480px;
-    width: 100%;
-    padding: 1.5rem 2rem;
+    padding: 20px 24px;
+    box-shadow: 0 4px 12px rgb(253 216 53 / 0.25);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 16px;
   }
-
-  /* Button base styles */
-  button {
-    font-family: inherit;
+  /* Label: Buat button top left */
+  .create-btn {
+    align-self: flex-start;
+    background: #fdd835;
+    color: #4a401e;
     font-weight: 600;
+    border: none;
+    padding: 8px 16px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    border: none;
-    min-height: 38px;
-    padding: 0 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    user-select: none;
+    transition: background-color 0.25s ease;
+    box-shadow: 0 2px 6px rgb(253 216 53 / 0.4);
   }
-  button:focus-visible {
-    outline: 3px solid #fbde4a;
-    outline-offset: 2px;
+  .create-btn:hover,
+  .create-btn:focus {
+    background: #fbc02d;
+    outline: none;
   }
-
-  /* Header Buttons */
-  #buatBtn {
-    background-color: #ffeb3b;
-    color: #463b00;
-    border: 2px solid #fbc02d;
-  }
-  #buatBtn:hover, #buatBtn:focus {
-    background-color: #fbc02d;
-  }
-
-  /* Content text */
-  .content-row {
+  
+  /* Quiz details container */
+  .quiz-details {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 1rem;
+    line-height: 1.3;
   }
-  .content-label {
+  .quiz-details span {
+    display: block;
+    margin-bottom: 2px;
+  }
+  /* Special line with bullet and progress */
+  .status-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-weight: 600;
   }
-  .content-value {
+  .status-bullet {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #fdd835;
+  }
+  /* Progress text style */
+  .status-text {
     font-weight: 500;
+    color: #827717;
   }
 
-  /* Play button */
-  #playBtn {
-    background-color: #fff9c4;
-    color: #463b00;
-    border: 2px solid #fbc02d;
-  }
-  #playBtn:hover, #playBtn:focus {
-    background-color: #fbc02d;
-    color: #3e2f00;
-  }
-
-  /* Edit and Hapus buttons container */
+  /* Footer action buttons (Edit, Hapus, Lihat hasil) */
   .action-buttons {
     display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 16px;
+    margin-top: 12px;
   }
-
-  /* Edit button */
-  #editBtn {
-    background-color: #fff9c4;
-    color: #463b00;
-    border: 2px solid #fbc02d;
+  .action-button {
     flex: 1;
-    justify-content: center;
-  }
-  #editBtn:hover, #editBtn:focus {
-    background-color: #fbc02d;
-    color: #3e2f00;
-  }
-  /* Hapus button */
-  #hapusBtn {
-    background-color: transparent;
-    color: #d32f2f;
-    border: 2px solid #d32f2f;
-    flex: 1;
-    justify-content: center;
-  }
-  #hapusBtn:hover, #hapusBtn:focus {
-    background-color: #d32f2f;
-    color: white;
-  }
-
-  /* Footer Navbar */
-  footer {
-    position: sticky;
-    bottom: 0;
+    background: #fff8e1;
+    border: 2px solid #fdd835;
+    color: #4a401e;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 56px;
-    border-top: 2px solid #ffeb3b;
+    justify-content: center;
+    gap: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 2px 8px rgb(253 216 53 / 0.3);
+  }
+  .action-button:hover,
+  .action-button:focus {
+    background: #fdd835;
+    color: #3e2c00;
+    outline: none;
+  }
+  .material-icons.action-icon {
+    font-size: 18px;
   }
 
-  /* Responsive */
+  /* Footer navigation */
+  footer {
+    background-color: #fdd835;
+    padding: 14px 24px;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #4a401e;
+    box-shadow: 0 -3px 8px rgb(253 216 53 / 0.3);
+    user-select: none;
+  }
+
+  /* Responsive styles */
   @media (max-width: 767px) {
-    header, footer {
-      padding-left: 1rem;
-      padding-right: 1rem;
+    .quiz-card {
+      padding: 16px 20px;
     }
-    .card {
-      max-width: 100%;
-      padding: 1.5rem 1rem;
-      border-width: 1.5px;
+    .action-buttons {
+      flex-direction: column;
     }
-  }
-  @media (min-width: 768px) {
-    main {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+    .action-button {
+      flex: none;
+      width: 100%;
+    }
+    header {
+      font-size: 1.3rem;
+      padding: 14px 16px;
+    }
+    footer {
+      font-size: 1.1rem;
+      padding: 12px 16px;
     }
   }
 
+  @media (min-width: 768px) {
+    .page-container {
+      padding: 32px 48px;
+    }
+    header {
+      font-size: 2rem;
+      padding: 20px 48px;
+    }
+    footer {
+      font-size: 1.4rem;
+      padding: 20px 48px;
+    }
+  }
 </style>
 </head>
 <body>
-  <header>
-    <span>Kelola Materi</span>
-    <button id="buatBtn" type="button" aria-label="Buat Materi Baru">Buat</button>
-  </header>
+  <div class="page-container" role="main">
+    <header>Kavola Quiz</header>
 
-  <main>
-    <article class="card" role="region" aria-labelledby="materiTitle">
-      <div class="content-row">
-        <div class="content-label">Mapel :</div> 
-        <div class="content-value">Bahasa Indonesia</div>
-      </div>
-      <div class="content-row">
-        <div class="content-label">Judul :</div>
-        <div class="content-value">Struktur Paragraf</div>
-      </div>
-      <div class="content-row" aria-label="Durasi Video">
-        <div class="content-label">Durasi :</div>
-        <div class="content-value" style="display:flex; align-items:center; gap:0.5rem;">
-          02:00
-          <button id="playBtn" type="button" aria-label="Putar Video">
-            <span class="material-icons" aria-hidden="true" style="font-size:1.25rem;">play_arrow</span> Play
-          </button>
+    <section class="quiz-card" aria-label="Detail quiz Bahasa Indonesia tentang Struktur Paragraf">
+      <button class="create-btn" type="button" aria-label="Buat quiz baru">Buat</button>
+      <div class="quiz-details">
+        <span><strong>Mapel:</strong> Bahasa Indonesia</span>
+        <span><strong>Judul:</strong> Struktur Paragraf</span>
+        <div class="status-line">
+          <span><strong>Status:</strong></span>
+          <span class="status-text">Berlangsung</span>
+          <span class="status-bullet" aria-hidden="true"></span>
+          <span class="status-text">11 / 32 sedang mengerjakan</span>
         </div>
+        <span><strong>Soal:</strong> 2</span>
+        <span><strong>Durasi:</strong> 10 menit</span>
       </div>
-      <div class="content-row">
-        <div class="content-label">Didengar :</div>
-        <div class="content-value">11 / 32 siswa</div>
-      </div>
-      <div class="action-buttons">
-        <button id="editBtn" type="button" aria-label="Edit Materi">Edit</button>
-        <button id="hapusBtn" type="button" aria-label="Hapus Materi">Hapus</button>
-      </div>
-    </article>
-  </main>
 
-  <footer role="contentinfo" aria-label="Navigasi Footer">
-    Navbar
+      <nav class="action-buttons" aria-label="Tombol aksi quiz">
+        <button class="action-button" type="button" aria-label="Edit quiz">
+          <span class="material-icons action-icon" aria-hidden="true">edit</span>
+          Edit
+        </button>
+        <button class="action-button" type="button" aria-label="Hapus quiz">
+          <span class="material-icons action-icon" aria-hidden="true">delete</span>
+          Hapus
+        </button>
+        <button class="action-button" type="button" aria-label="Lihat hasil quiz">
+          <span class="material-icons action-icon" aria-hidden="true">visibility</span>
+          Lihat hasil
+        </button>
+      </nav>
+    </section>
+  </div>
+
+  <footer role="contentinfo" aria-label="Navigasi">
+    Navigasi
   </footer>
 </body>
 </html>
+
+
 
 
 
