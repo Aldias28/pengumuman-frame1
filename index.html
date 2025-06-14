@@ -1,132 +1,229 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hapus Pengumuman</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <style>
-    /* Reset and base */
-    *, *::before, *::after {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #fff9c4 0%, #fffde7 100%);
-      color: #333;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      min-height: 100vh;
-      align-items: center;
-      justify-content: center;
-    }
-    .container {
-      background: white;
-      border-radius: 16px;
-      padding: 32px 48px;
-      max-width: 420px;
-      width: 90vw;
-      box-shadow: 0 10px 28px rgba(255, 235, 59, 0.3);
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      text-align: center;
-    }
-    h1 {
-      font-weight: 700;
-      font-size: 1.75rem;
-      color: #fbc02d; /* deep yellow */
-      margin-bottom: 8px;
-    }
-    p {
-      font-size: 1.1rem;
-      color: #666;
-      line-height: 1.5;
-    }
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    button {
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 1rem;
-      padding: 12px 28px;
-      border: 2px solid transparent;
-      border-radius: 12px;
-      min-width: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-      user-select: none;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kelola Materi</title>
+<!-- Google Material Icons CDN -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<style>
+  /* Reset & base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fffbea;
+    color: #463b00;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
-    /* Tombol Batal (Hitam Putih) */
-    .btn-batal {
-      background-color: #000;
-      color: #fff;
-      border-color: #000;
-    }
-    .btn-batal:hover,
-    .btn-batal:focus {
-      background-color: #333;
-      border-color: #333;
-      outline: none;
-    }
+  /* Layout containers */
+  header, footer {
+    background: #fff9c4; /* light yellow */
+    color: #463b00;
+    padding: 1rem 1.5rem;
+    font-weight: 700;
+    user-select: none;
+  }
 
-    /* Tombol Hapus (Merah Putih) */
-    .btn-hapus {
-      background-color: #d32f2f;
-      color: #fff;
-      border-color: #d32f2f;
-    }
-    .btn-hapus:hover,
-    .btn-hapus:focus {
-      background-color: #b71c1c;
-      border-color: #b71c1c;
-      outline: none;
-    }
+  header {
+    font-size: 1.25rem;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 4px rgba(70, 59, 0, 0.15);
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    /* Responsive text scaling */
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.5rem;
-      }
-      p {
-        font-size: 1rem;
-      }
-      .buttons {
-        gap: 16px;
-      }
-      button {
-        min-width: 100%;
-        padding: 14px 0;
-      }
+  main {
+    flex-grow: 1;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgb(255 235 59 / 0.2);
+    border: 2px solid #ffeb3b;
+    max-width: 480px;
+    width: 100%;
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Button base styles */
+  button {
+    font-family: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    min-height: 38px;
+    padding: 0 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+  }
+  button:focus-visible {
+    outline: 3px solid #fbde4a;
+    outline-offset: 2px;
+  }
+
+  /* Header Buttons */
+  #buatBtn {
+    background-color: #ffeb3b;
+    color: #463b00;
+    border: 2px solid #fbc02d;
+  }
+  #buatBtn:hover, #buatBtn:focus {
+    background-color: #fbc02d;
+  }
+
+  /* Content text */
+  .content-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .content-label {
+    font-weight: 600;
+  }
+  .content-value {
+    font-weight: 500;
+  }
+
+  /* Play button */
+  #playBtn {
+    background-color: #fff9c4;
+    color: #463b00;
+    border: 2px solid #fbc02d;
+  }
+  #playBtn:hover, #playBtn:focus {
+    background-color: #fbc02d;
+    color: #3e2f00;
+  }
+
+  /* Edit and Hapus buttons container */
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  /* Edit button */
+  #editBtn {
+    background-color: #fff9c4;
+    color: #463b00;
+    border: 2px solid #fbc02d;
+    flex: 1;
+    justify-content: center;
+  }
+  #editBtn:hover, #editBtn:focus {
+    background-color: #fbc02d;
+    color: #3e2f00;
+  }
+  /* Hapus button */
+  #hapusBtn {
+    background-color: transparent;
+    color: #d32f2f;
+    border: 2px solid #d32f2f;
+    flex: 1;
+    justify-content: center;
+  }
+  #hapusBtn:hover, #hapusBtn:focus {
+    background-color: #d32f2f;
+    color: white;
+  }
+
+  /* Footer Navbar */
+  footer {
+    position: sticky;
+    bottom: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    border-top: 2px solid #ffeb3b;
+  }
+
+  /* Responsive */
+  @media (max-width: 767px) {
+    header, footer {
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
-  </style>
+    .card {
+      max-width: 100%;
+      padding: 1.5rem 1rem;
+      border-width: 1.5px;
+    }
+  }
+  @media (min-width: 768px) {
+    main {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
+
+</style>
 </head>
 <body>
-  <main class="container" role="dialog" aria-labelledby="dialogTitle" aria-describedby="dialogDesc">
-    <h1 id="dialogTitle">Hapus Pengumuman</h1>
-    <p id="dialogDesc">Apakah Anda yakin ingin menghapus pengumuman ini?</p>
-    <div class="buttons">
-      <button type="button" class="btn-batal" aria-label="Batal menghapus pengumuman">
-        <span class="material-icons" aria-hidden="true">close</span>
-        Batal
-      </button>
-      <button type="button" class="btn-hapus" aria-label="Hapus pengumuman">
-        <span class="material-icons" aria-hidden="true">delete</span>
-        Hapus
-      </button>
-    </div>
+  <header>
+    <span>Kelola Materi</span>
+    <button id="buatBtn" type="button" aria-label="Buat Materi Baru">Buat</button>
+  </header>
+
+  <main>
+    <article class="card" role="region" aria-labelledby="materiTitle">
+      <div class="content-row">
+        <div class="content-label">Mapel :</div> 
+        <div class="content-value">Bahasa Indonesia</div>
+      </div>
+      <div class="content-row">
+        <div class="content-label">Judul :</div>
+        <div class="content-value">Struktur Paragraf</div>
+      </div>
+      <div class="content-row" aria-label="Durasi Video">
+        <div class="content-label">Durasi :</div>
+        <div class="content-value" style="display:flex; align-items:center; gap:0.5rem;">
+          02:00
+          <button id="playBtn" type="button" aria-label="Putar Video">
+            <span class="material-icons" aria-hidden="true" style="font-size:1.25rem;">play_arrow</span> Play
+          </button>
+        </div>
+      </div>
+      <div class="content-row">
+        <div class="content-label">Didengar :</div>
+        <div class="content-value">11 / 32 siswa</div>
+      </div>
+      <div class="action-buttons">
+        <button id="editBtn" type="button" aria-label="Edit Materi">Edit</button>
+        <button id="hapusBtn" type="button" aria-label="Hapus Materi">Hapus</button>
+      </div>
+    </article>
   </main>
+
+  <footer role="contentinfo" aria-label="Navigasi Footer">
+    Navbar
+  </footer>
 </body>
 </html>
+
+
 
 
